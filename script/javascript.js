@@ -21,7 +21,23 @@ const app = new Vue (
         methods: 
         {
             addElement: function() {
-                console.log(this.inputVar)
+                if (this.inputVar != '') {
+                    this.listaTodo.push({text:this.inputVar,done:false});
+                }
+            },
+
+            deleteElement: function(index) {
+                this.listaTodo.splice(index,1);
+            },
+
+            cambiaStat: function(element) {
+                if (this.listaTodo[element].done == false) {
+                    this.listaTodo[element].done = true;
+                }
+                else {
+                    this.listaTodo[element].done = false;
+
+                }
             }
 
         },

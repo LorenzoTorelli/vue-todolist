@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>TodoList</title>
 </head>
 <body>
@@ -15,12 +16,17 @@
             </div>
             <div id="main">
                 <div class="top-main">
-                    <input v-model="inputVar" type="text" placeholder="Inserire nuovo elemento">
-                    <button @click="addElement">Aggiungi</button>
+                    <input v-model="inputVar" type="text" placeholder="Inserire nuovo elemento"  @keyup.enter="addElement()" >
+                    <button @click="addElement()">Aggiungi</button>
                 </div>
-                <div class="bottom-main" v-for="(elemento, index) in listaTodo">
-                    <div class="item">{{elemento.text}}</div>
-                   
+                <div class="bottom-main" >
+                    <ul v-if="listaTodo.length > 0">
+                        <li class="item" v-for="(elemento, index) in listaTodo" >
+                            <span :class="elemento.done == true ? 'active' : '' " @click= "cambiaStat(index)">{{elemento.text}} </span>
+                            <i  @click="deleteElement(index)" class="fas fa-trash-alt"></i>
+                        </li>
+                    </ul>
+                    <h2 v-else>Non ci sono elementi da visualizzare</h2>
                 </div>
             </div>
         </div>
